@@ -27,7 +27,7 @@ class Header extends React.Component {
 
     return (
       <div data-testid="header-component">
-        {loading ? <Loading /> : <p>{user.name}</p>}
+        {loading ? <Loading /> : <p data-testid="header-user-name">{user.name}</p>}
       </div>
     );
   }
