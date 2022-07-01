@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
 import Loading from './Loading';
 
@@ -22,8 +23,8 @@ class Login extends React.Component {
 
   handleClick = () => {
     const { username } = this.state;
-    this.setState({ loading: true }, () => {
-      createUser({ name: username });
+    this.setState({ loading: true }, async () => {
+      await createUser({ name: username });
       this.setState({ loading: false });
     });
   }
@@ -47,16 +48,15 @@ class Login extends React.Component {
                 onChange={ this.handleChange }
               />
             </label>
-            <Link to="/search">
-              <button
-                type="submit"
-                onClick={ () => createUser({ name: username }) }
-                data-testid="login-submit-button"
-                disabled={ username.length < MIN_CHARACTERS }
-              >
-                Entrar
-              </button>
-            </Link>
+            <button
+              type="submit"
+              onClick={ this.handleClick }
+              data-testid="login-submit-button"
+              disabled={ username.length < MIN_CHARACTERS }
+            >
+              Entrar
+            </button>
+            { localStorage.getItem('user') && <Redirect to="/search" /> }
           </>
         )}
       </div>
