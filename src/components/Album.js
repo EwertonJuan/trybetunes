@@ -4,6 +4,7 @@ import getMusics from '../services/musicsAPI';
 import Header from './Header';
 import Loading from './Loading';
 import MusicCard from './MusicCard';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -15,6 +16,7 @@ class Album extends React.Component {
       artwork: '',
       album: '',
       loading: false,
+      favoriteSongs: [],
     };
   }
 
@@ -22,14 +24,43 @@ class Album extends React.Component {
     const { match: { params: { id } } } = this.props;
     this.setState({ loading: true }, async () => {
       const musics = await getMusics(id);
-      this.setState({
+      const favorites = await getFavoriteSongs();
+      this.setState(({ favoriteSongs }) => ({
         musics,
         artist: musics[0].artistName,
         artwork: musics[0].artworkUrl100,
         album: musics[0].collectionName,
         loading: false,
-      });
+        favoriteSongs: [...favoriteSongs, ...favorites],
+      }));
     });
+  }
+
+  componentDidUpdate() {
+    /* this.setState({ loading: true }, async () => {
+      const favorites = await getFavoriteSongs();
+      this.setState(({ favoriteSongs }) => ({ favoriteSongs: [...favoriteSongs, ...favorites] }));
+    }); */
+  }
+
+  addFavoriteSong = (song) => {
+    this.setState({ loading: true }, async () => {
+      await addSong(song);
+      this.setState({ loading: false });
+    });
+  }
+
+  updateFavoriteSongs = () => {
+    this.setState({ loading: true }, async () => {
+      const favorites = await getFavoriteSongs();
+      this.setState(({ favoriteSongs }) => ({
+        loading: false, favoriteSongs: [...favoriteSongs, ...favorites] }));
+    });
+  }
+
+  isSongFavorite = (id) => {
+    const { favoriteSongs } = this.state;
+    return favoriteSongs.some(({ trackId }) => trackId === id);
   }
 
   render() {
@@ -55,7 +86,9 @@ class Album extends React.Component {
                   trackName={ music.trackName }
                   previewUrl={ music.previewUrl }
                   trackId={ music.trackId }
-                  song={ music }
+                  addFavoriteSong={ () => this.addFavoriteSong(music) }
+                  isSongFavorite={ this.isSongFavorite(music.trackId) }
+                  /* uptadeFavoriteSongs={ this.updateFavoriteSongs } */
                 />
               ))}
             </ul>
