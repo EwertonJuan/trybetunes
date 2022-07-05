@@ -4,7 +4,7 @@ import getMusics from '../services/musicsAPI';
 import Header from './Header';
 import Loading from './Loading';
 import MusicCard from './MusicCard';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -47,6 +47,22 @@ class Album extends React.Component {
     });
   }
 
+  removeFavoriteSong = (song) => {
+    this.setState({ loading: true }, async () => {
+      await removeSong(song);
+      const favorites = await getFavoriteSongs();
+      this.setState({ loading: false, favoriteSongs: favorites });
+    });
+  }
+
+  toggleFavoriteSong = ({ target }, song) => {
+    if (target.checked) {
+      this.addFavoriteSong(song);
+    } else {
+      this.removeFavoriteSong(song);
+    }
+  }
+
   isSongFavorite = (id) => {
     const { favoriteSongs } = this.state;
     return favoriteSongs.some(({ trackId }) => trackId === id);
@@ -75,7 +91,7 @@ class Album extends React.Component {
                   trackName={ music.trackName }
                   previewUrl={ music.previewUrl }
                   trackId={ music.trackId }
-                  addFavoriteSong={ () => this.addFavoriteSong(music) }
+                  toggleFavoriteSong={ (event) => this.toggleFavoriteSong(event, music) }
                   isSongFavorite={ this.isSongFavorite(music.trackId) }
                 />
               ))}
