@@ -36,25 +36,14 @@ class Album extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    /* this.setState({ loading: true }, async () => {
-      const favorites = await getFavoriteSongs();
-      this.setState(({ favoriteSongs }) => ({ favoriteSongs: [...favoriteSongs, ...favorites] }));
-    }); */
-  }
-
   addFavoriteSong = (song) => {
     this.setState({ loading: true }, async () => {
       await addSong(song);
-      this.setState({ loading: false });
-    });
-  }
-
-  updateFavoriteSongs = () => {
-    this.setState({ loading: true }, async () => {
-      const favorites = await getFavoriteSongs();
+      const newFavorite = await getFavoriteSongs();
       this.setState(({ favoriteSongs }) => ({
-        loading: false, favoriteSongs: [...favoriteSongs, ...favorites] }));
+        loading: false,
+        favoriteSongs: [...favoriteSongs, newFavorite[newFavorite.length - 1]],
+      }));
     });
   }
 
@@ -88,7 +77,6 @@ class Album extends React.Component {
                   trackId={ music.trackId }
                   addFavoriteSong={ () => this.addFavoriteSong(music) }
                   isSongFavorite={ this.isSongFavorite(music.trackId) }
-                  /* uptadeFavoriteSongs={ this.updateFavoriteSongs } */
                 />
               ))}
             </ul>
