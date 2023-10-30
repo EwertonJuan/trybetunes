@@ -1,0 +1,75 @@
+form {
+  margin: auto;
+  height: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  margin-left: 16px;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 16px 16px 16px;
+}
+
+.search p {
+  color: #001813;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.albums-list {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.album {
+  list-style-type: none;
+  margin-top: 16px;
+}
+
+.card {
+  display: flex;
+  width: 290px;
+  height: 360px;
+  flex-direction: column;
+  margin: auto;
+  text-decoration: none;
+  /* padding-bottom: 0px; */
+  /* align-items: flex-start; */
+  /* gap: 16px; */
+}
+
+.card img {
+  border-radius: 6px 6px 0px 0px;
+  height: 60%;
+  width: 100%;
+}
+
+.album-name {
+  color: #3D495C;
+  /* font-family: Verdana; */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 24px */
+  margin: 8px 16px;
+}
+
+.artist-name {
+  color: var(--gray-700, #3D495C);
+  /* font-family: Verdana; */
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 18px */
+  margin-left: 16px;
+}
