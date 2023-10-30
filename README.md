@@ -9,7 +9,7 @@ Siga estas etapas para configurar o projeto em sua máquina local:
 1. Clone o repositório do TrybeTunes:
 
    ```bash
-   git clone https://github.com/EwertonJuan/trybetunes.git
+   git clone git@github.com:EwertonJuan/trybetunes.git
    ```
 
 2. Navegue até o diretório do projeto:
