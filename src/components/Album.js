@@ -5,6 +5,7 @@ import Header from './Header';
 import Loading from './Loading';
 import MusicCard from './MusicCard';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import '../styles/Album.css';
 
 class Album extends React.Component {
   constructor() {
@@ -75,8 +76,8 @@ class Album extends React.Component {
       <div data-testid="page-album">
         <Header />
         { loading ? <Loading /> : (
-          <>
-            <div>
+          <div className="album">
+            <div className="album-info">
               <img
                 src={ artwork }
                 alt={ `Capa de ${album}` }
@@ -96,7 +97,7 @@ class Album extends React.Component {
                 />
               ))}
             </ul>
-          </>
+          </div>
         )}
       </div>
     );

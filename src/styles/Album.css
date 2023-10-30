@@ -1,0 +1,32 @@
+.album {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+
+.album-info img {
+  width: 290px;
+  height: 290px;
+  border-radius: 6px;
+}
+
+.album-info h3 {
+  color: #023031;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 32px;
+}
+
+.album-info p {
+  color: #023031;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.album ul {
+  margin-left: 32px;
+}
